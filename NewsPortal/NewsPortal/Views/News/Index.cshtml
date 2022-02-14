@@ -1,0 +1,39 @@
+﻿@model List<NewsPortal.Models.Database.NewsInfo>
+@{
+    ViewBag.Title = "Index";
+}
+
+@if (Model == null)
+{
+    <h3>No record found</h3>
+}
+else
+{
+    <h2 class="text-center">NEWS PORTAL</h2>
+    <table class="table table-bordered table-responsive">
+        <tr class="text-center bg-success">
+            <th class="text-center">Id</th>
+            <th class="text-center">Title</th>
+            <th class="text-center">Description</th>
+            <th class="text-center">Category</th>
+            <th class="text-center">Published Date</th>
+            <th colspan="2" class="text-center">Action</th>
+        </tr>
+
+        @foreach (var a in Model)
+        {
+            <tr class="text-center">
+                <td>@Html.DisplayFor(modelItem => a.ID)</td>
+                <td>@Html.DisplayFor(modelItem => a.Title)</td>
+                <td>@a.Description</td>
+                <td>@Html.DisplayFor(modelItem => a.Category) </td>>
+                <td>@Html.DisplayFor(modelItem => a.DateOfPublished)</td>
+                <td><a href="/News/edit/@a.ID" class="btn btn-success">Edit</a> </td>
+                <td><a href="/News/delete/@a.ID" class="btn btn-danger">Delete</a> </td>
+            </tr>
+        }
+
+    </table>
+
+
+}
