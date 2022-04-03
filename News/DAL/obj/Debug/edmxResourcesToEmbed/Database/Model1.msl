@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="NewsPortalModelStoreContainer" CdmEntityContainer="NewsPortalEntities">
+    <EntitySetMapping Name="categories">
+      <EntityTypeMapping TypeName="NewsPortalModel.category">
+        <MappingFragment StoreEntitySet="category">
+          <ScalarProperty Name="cid" ColumnName="cid" />
+          <ScalarProperty Name="cname" ColumnName="cname" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="news">
+      <EntityTypeMapping TypeName="NewsPortalModel.news">
+        <MappingFragment StoreEntitySet="news">
+          <ScalarProperty Name="nid" ColumnName="nid" />
+          <ScalarProperty Name="news1" ColumnName="news" />
+          <ScalarProperty Name="cid" ColumnName="cid" />
+          <ScalarProperty Name="uid" ColumnName="uid" />
+          <ScalarProperty Name="time" ColumnName="time" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="nusers">
+      <EntityTypeMapping TypeName="NewsPortalModel.nuser">
+        <MappingFragment StoreEntitySet="nuser">
+          <ScalarProperty Name="uname" ColumnName="uname" />
+          <ScalarProperty Name="uid" ColumnName="uid" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ucomments">
+      <EntityTypeMapping TypeName="NewsPortalModel.ucomment">
+        <MappingFragment StoreEntitySet="ucomment">
+          <ScalarProperty Name="comment" ColumnName="comment" />
+          <ScalarProperty Name="nid" ColumnName="nid" />
+          <ScalarProperty Name="uid" ColumnName="uid" />
+          <ScalarProperty Name="coid" ColumnName="coid" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

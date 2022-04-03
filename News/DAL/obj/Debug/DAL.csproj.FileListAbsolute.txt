@@ -1,0 +1,10 @@
+C:\Users\IMON\source\repos\News\DAL\bin\Debug\DAL.dll.config
+C:\Users\IMON\source\repos\News\DAL\bin\Debug\DAL.dll
+C:\Users\IMON\source\repos\News\DAL\bin\Debug\DAL.pdb
+C:\Users\IMON\source\repos\News\DAL\bin\Debug\EntityFramework.dll
+C:\Users\IMON\source\repos\News\DAL\bin\Debug\EntityFramework.xml
+C:\Users\IMON\source\repos\News\DAL\obj\Debug\DAL.csproj.AssemblyReference.cache
+C:\Users\IMON\source\repos\News\DAL\obj\Debug\DAL.csproj.CoreCompileInputs.cache
+C:\Users\IMON\source\repos\News\DAL\obj\Debug\DAL.csproj.CopyComplete
+C:\Users\IMON\source\repos\News\DAL\obj\Debug\DAL.dll
+C:\Users\IMON\source\repos\News\DAL\obj\Debug\DAL.pdb

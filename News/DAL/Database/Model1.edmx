@@ -1,0 +1,258 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="NewsPortalModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="category">
+          <Key>
+            <PropertyRef Name="cid" />
+          </Key>
+          <Property Name="cid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="cname" Type="varchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="news">
+          <Key>
+            <PropertyRef Name="nid" />
+          </Key>
+          <Property Name="nid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="news" Type="varchar" MaxLength="500" />
+          <Property Name="cid" Type="int" />
+          <Property Name="uid" Type="int" />
+          <Property Name="time" Type="datetime" />
+        </EntityType>
+        <EntityType Name="nuser">
+          <Key>
+            <PropertyRef Name="uid" />
+          </Key>
+          <Property Name="uid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="uname" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="ucomment">
+          <Key>
+            <PropertyRef Name="coid" />
+          </Key>
+          <Property Name="coid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="uid" Type="int" />
+          <Property Name="nid" Type="int" />
+          <Property Name="comment" Type="varchar" MaxLength="500" />
+        </EntityType>
+        <Association Name="FK_news_category">
+          <End Role="category" Type="Self.category" Multiplicity="0..1" />
+          <End Role="news" Type="Self.news" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="category">
+              <PropertyRef Name="cid" />
+            </Principal>
+            <Dependent Role="news">
+              <PropertyRef Name="cid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_news_nuser">
+          <End Role="nuser" Type="Self.nuser" Multiplicity="0..1" />
+          <End Role="news" Type="Self.news" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="nuser">
+              <PropertyRef Name="uid" />
+            </Principal>
+            <Dependent Role="news">
+              <PropertyRef Name="uid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ucomment_news">
+          <End Role="news" Type="Self.news" Multiplicity="0..1" />
+          <End Role="ucomment" Type="Self.ucomment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="news">
+              <PropertyRef Name="nid" />
+            </Principal>
+            <Dependent Role="ucomment">
+              <PropertyRef Name="nid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="NewsPortalModelStoreContainer">
+          <EntitySet Name="category" EntityType="Self.category" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="news" EntityType="Self.news" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="nuser" EntityType="Self.nuser" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ucomment" EntityType="Self.ucomment" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_news_category" Association="Self.FK_news_category">
+            <End Role="category" EntitySet="category" />
+            <End Role="news" EntitySet="news" />
+          </AssociationSet>
+          <AssociationSet Name="FK_news_nuser" Association="Self.FK_news_nuser">
+            <End Role="nuser" EntitySet="nuser" />
+            <End Role="news" EntitySet="news" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ucomment_news" Association="Self.FK_ucomment_news">
+            <End Role="news" EntitySet="news" />
+            <End Role="ucomment" EntitySet="ucomment" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="NewsPortalModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="category">
+          <Key>
+            <PropertyRef Name="cid" />
+          </Key>
+          <Property Name="cid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="cname" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="news" Relationship="Self.FK_news_category" FromRole="category" ToRole="news" />
+        </EntityType>
+        <EntityType Name="news">
+          <Key>
+            <PropertyRef Name="nid" />
+          </Key>
+          <Property Name="nid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="news1" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="cid" Type="Int32" />
+          <Property Name="uid" Type="Int32" />
+          <Property Name="time" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="category" Relationship="Self.FK_news_category" FromRole="news" ToRole="category" />
+          <NavigationProperty Name="nuser" Relationship="NewsPortalModel.FK_news_nuser" FromRole="news" ToRole="nuser" />
+          <NavigationProperty Name="ucomments" Relationship="NewsPortalModel.FK_ucomment_news" FromRole="news" ToRole="ucomment" />
+        </EntityType>
+        <Association Name="FK_news_category">
+          <End Role="category" Type="Self.category" Multiplicity="0..1" />
+          <End Role="news" Type="Self.news" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="category">
+              <PropertyRef Name="cid" />
+            </Principal>
+            <Dependent Role="news">
+              <PropertyRef Name="cid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="NewsPortalEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="categories" EntityType="Self.category" />
+          <EntitySet Name="news" EntityType="Self.news" />
+          <AssociationSet Name="FK_news_category" Association="Self.FK_news_category">
+            <End Role="category" EntitySet="categories" />
+            <End Role="news" EntitySet="news" />
+          </AssociationSet>
+          <EntitySet Name="nusers" EntityType="NewsPortalModel.nuser" />
+          <AssociationSet Name="FK_news_nuser" Association="NewsPortalModel.FK_news_nuser">
+            <End Role="nuser" EntitySet="nusers" />
+            <End Role="news" EntitySet="news" />
+          </AssociationSet>
+          <EntitySet Name="ucomments" EntityType="NewsPortalModel.ucomment" />
+          <AssociationSet Name="FK_ucomment_news" Association="NewsPortalModel.FK_ucomment_news">
+            <End Role="news" EntitySet="news" />
+            <End Role="ucomment" EntitySet="ucomments" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="nuser">
+          <Key>
+            <PropertyRef Name="uid" />
+          </Key>
+          <Property Name="uid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="uname" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="news" Relationship="NewsPortalModel.FK_news_nuser" FromRole="nuser" ToRole="news" />
+        </EntityType>
+        <Association Name="FK_news_nuser">
+          <End Type="NewsPortalModel.nuser" Role="nuser" Multiplicity="0..1" />
+          <End Type="NewsPortalModel.news" Role="news" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="nuser">
+              <PropertyRef Name="uid" />
+            </Principal>
+            <Dependent Role="news">
+              <PropertyRef Name="uid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="ucomment">
+          <Key>
+            <PropertyRef Name="coid" />
+          </Key>
+          <Property Name="coid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="uid" Type="Int32" />
+          <Property Name="nid" Type="Int32" />
+          <Property Name="comment" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="news" Relationship="NewsPortalModel.FK_ucomment_news" FromRole="ucomment" ToRole="news" />
+        </EntityType>
+        <Association Name="FK_ucomment_news">
+          <End Type="NewsPortalModel.news" Role="news" Multiplicity="0..1" />
+          <End Type="NewsPortalModel.ucomment" Role="ucomment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="news">
+              <PropertyRef Name="nid" />
+            </Principal>
+            <Dependent Role="ucomment">
+              <PropertyRef Name="nid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="NewsPortalModelStoreContainer" CdmEntityContainer="NewsPortalEntities">
+          <EntitySetMapping Name="categories">
+            <EntityTypeMapping TypeName="NewsPortalModel.category">
+              <MappingFragment StoreEntitySet="category">
+                <ScalarProperty Name="cid" ColumnName="cid" />
+                <ScalarProperty Name="cname" ColumnName="cname" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="news">
+            <EntityTypeMapping TypeName="NewsPortalModel.news">
+              <MappingFragment StoreEntitySet="news">
+                <ScalarProperty Name="nid" ColumnName="nid" />
+                <ScalarProperty Name="news1" ColumnName="news" />
+                <ScalarProperty Name="cid" ColumnName="cid" />
+                <ScalarProperty Name="uid" ColumnName="uid" />
+                <ScalarProperty Name="time" ColumnName="time" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="nusers">
+            <EntityTypeMapping TypeName="NewsPortalModel.nuser">
+              <MappingFragment StoreEntitySet="nuser">
+                <ScalarProperty Name="uname" ColumnName="uname" />
+                <ScalarProperty Name="uid" ColumnName="uid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ucomments">
+            <EntityTypeMapping TypeName="NewsPortalModel.ucomment">
+              <MappingFragment StoreEntitySet="ucomment">
+                <ScalarProperty Name="comment" ColumnName="comment" />
+                <ScalarProperty Name="nid" ColumnName="nid" />
+                <ScalarProperty Name="uid" ColumnName="uid" />
+                <ScalarProperty Name="coid" ColumnName="coid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
